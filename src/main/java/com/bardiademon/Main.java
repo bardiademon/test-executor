@@ -15,6 +15,7 @@ public final class Main {
     private static Server server;
 
     public static void main(final String[] args) {
+        logger.info("Starting server...");
         executorService = Executors.newSingleThreadExecutor();
         executorService.submit(() -> {
             DbConnection.connect().thenAccept(connection -> {
@@ -29,7 +30,7 @@ public final class Main {
         });
     }
 
-    private static void die() {
+    public static void die() {
         executorService.shutdown();
         logger.warn("Shutdown main thread");
         server.die();

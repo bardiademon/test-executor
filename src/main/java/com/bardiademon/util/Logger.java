@@ -29,10 +29,16 @@ public final class Logger {
 
     private void log(final String type , final String color , final String log , final Object... params) {
         final StringBuilder logBuilder = new StringBuilder(log);
+
+        Throwable throwable = null;
         if (!logBuilder.isEmpty()) {
-            for (Object param : params) {
+            if (params.length > 0 && params[params.length - 1] instanceof Throwable) {
+                throwable = (Throwable) params[params.length - 1];
+            }
+            final int endFor = (throwable != null ? params.length - 1 : params.length);
+            for (int i = 0; i < endFor; i++) {
                 final int indexOf = log.indexOf("{}");
-                logBuilder.replace(indexOf , indexOf + 2 , param == null ? "null" : param.toString());
+                logBuilder.replace(indexOf , indexOf + 2 , params[i] == null ? "null" : params[i].toString());
             }
         }
 
@@ -40,6 +46,9 @@ public final class Logger {
         final String className = aClass.getSimpleName();
 
         System.out.printf("%s%s: %s ---- %s ---> %s\n" , color , type.toUpperCase(Locale.ROOT) , nowTime , className , logBuilder);
+        if (throwable != null) {
+            throwable.printStackTrace(System.err);
+        }
     }
 
 }
