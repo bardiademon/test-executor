@@ -7,6 +7,14 @@
     <groupId>com.bardiademon.test</groupId>
     <artifactId>TestExecutor</artifactId>
     <version>1.0.0</version>
+    <developers>
+        <developer>
+            <id>bardiademon</id>
+            <name>Bardia Namjoo</name>
+            <email>bardiademon@gmail.com</email>
+            <url>https://bardiademon.com</url>
+        </developer>
+    </developers>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
